@@ -22,6 +22,7 @@ pub enum LedgerInclusionState {
 
 #[derive(Clone, Debug, Serialize_repr, Deserialize_repr)]
 #[repr(u8)]
+#[non_exhaustive]
 pub enum ConflictReason {
     AlreadySpent = 1,
     AlreadySpentWhileConfirmingThisMilestone = 2,
@@ -32,12 +33,11 @@ pub enum ConflictReason {
     UnsupportedAddressType = 7,
     InvalidDustAllowance = 8,
     SemanticValidationFailed = 9,
-    #[serde(other)]
-    Unsupported,
 }
 
 #[derive(Clone, Debug, Serialize_repr, Deserialize_repr)]
 #[repr(u8)]
+#[non_exhaustive]
 pub enum OutputType {
     SigLockedSingleOutput = 0,
     SigLockedDustAllowanceOutput = 1,
@@ -45,6 +45,7 @@ pub enum OutputType {
 
 #[derive(Clone, Debug, Serialize_repr, Deserialize_repr)]
 #[repr(u8)]
+#[non_exhaustive]
 pub enum AddressType {
     Ed25519 = 0,
 }
