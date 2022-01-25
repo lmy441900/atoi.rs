@@ -52,6 +52,7 @@
 
 #[cfg(feature = "async")]
 mod asynch;
+#[cfg(any(feature = "sync", feature = "async"))]
 mod common;
 #[cfg(feature = "sync")]
 mod synch;
