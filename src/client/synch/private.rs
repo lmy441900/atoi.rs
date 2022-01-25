@@ -103,6 +103,9 @@ impl Client {
 
     /// Get a raw response from any of the stored nodes.
     pub(super) fn http_get_from_any_node(&self, path: &str) -> Result<Vec<u8>> {
+        // This is for [Error::NoAvailableNode]
+        let mut errors = Vec::new();
+
         for node in &self.nodes {
             let url = match node.join(path) {
                 Ok(url) => url,
@@ -112,12 +115,15 @@ impl Client {
 
             match self.http_get(&url) {
                 Ok(resp) => return Ok(resp),
-                Err(_) => continue,
+                Err(err) => {
+                    errors.push(err);
+                    continue;
+                }
             };
         }
 
         // If the loop ends before a return, then all nodes have failed.
-        Err(Error::NoAvailableNode)
+        Err(Error::NoAvailableNode(errors))
     }
 
     /// Perform a synchronous HTTP POST request to any of the stored node.

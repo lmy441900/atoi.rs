@@ -22,7 +22,7 @@ pub enum Error {
     #[error("the node responded with an error: {code} {reason}")]
     NodeError { code: u16, reason: String },
 
-    /// No node is currently available for use.
+    /// No node is currently available for use. An array of errors encountered is included.
     #[error("no node is currently available")]
-    NoAvailableNode,
+    NoAvailableNode(Vec<Self>),
 }
