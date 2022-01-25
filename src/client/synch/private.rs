@@ -27,7 +27,11 @@ impl Client {
     pub(super) fn http_get(&self, url: &Url) -> Result<Vec<u8>> {
         let resp = match self.agent.request_url("GET", url).call() {
             Ok(resp) => resp,
-            Err(err) => return Err(Error::NetworkError(Box::new(err))),
+            Err(err) => match err {
+                // We want to keep processing on HTTP errors returned by the node software.
+                ureq::Error::Status(_, resp) => resp,
+                ureq::Error::Transport(tnsp) => return Err(Error::NetworkError(Box::new(tnsp))),
+            },
         };
 
         // The HTTP header.
