@@ -18,7 +18,7 @@ impl Client {
         env!("CARGO_PKG_NAME"),
         "/",
         env!("CARGO_PKG_VERSION"),
-        "(ureq/",
+        " (ureq/",
         env!("UREQ_VERSION"),
         ")"
     );
