@@ -13,8 +13,15 @@ use url::Url;
 
 /// Private APIs.
 impl Client {
-    pub(super) const DEFAULT_USER_AGENT: &'static str =
-        concat!(env!("CARGO_PKG_NAME"), "/", env!("CARGO_PKG_VERSION"));
+    /// The default `User-Agent` string used in the HTTP client.
+    pub(super) const DEFAULT_USER_AGENT: &'static str = concat!(
+        env!("CARGO_PKG_NAME"),
+        "/",
+        env!("CARGO_PKG_VERSION"),
+        "(ureq/",
+        env!("UREQ_VERSION"),
+        ")"
+    );
 
     /// Perform a HTTP GET to (get from) `url` using [Self::agent].
     pub(super) fn http_get(&self, url: &Url) -> Result<Vec<u8>> {
