@@ -1,73 +1,55 @@
-# Copyright 2022 IOTA Stiftung
-# SPDX-License-Identifier: CC0-1.0
-
 [package]
 name = "iota-client"
 version = "2.0.0-alpha.1"
 authors = ["IOTA Stiftung"]
 edition = "2021"
-description = "The official client library for interacting with IOTA (a.k.a. the Tangle)"
+rust-version = "1.60"
+description = "An experimental client library for interacting with IOTA (a.k.a. the Tangle)"
 documentation = "https://wiki.iota.org"
 homepage = "https://iota.org"
-repository = "https://github.com/iotaledger/iota.rs"
+repository = "https://github.com/lmy441900/atoi.rs"
 license = "Apache-2.0"
 keywords = ["iota", "tangle", "client"]
 categories = ["cryptography::cryptocurrencies"]
 publish = false
 
-[lib]
-crate-type = ["rlib", "cdylib", "staticlib"]
-
 [dependencies]
-bee-common = { version = "0.6.0", default-features = false }
-bee-rest-api = { version = "0.1.7", default-features = false }
-bee-message = { version = "0.1.6", default-features = false, features = ["serde"] }
-iota-crypto = { version = "0.9.1", default-features = false }
-
-derive_builder = { version = "0.10.2", default-features = false }
-hex = { version = "0.4.3", default-features = false }
+async-trait = { version = "0.1.52", default-features = false }
+derive_builder = { version = "0.10.2", default-features = false, optional = true }
 log = { version = "0.4.14", default-features = false }
-semver = { version = "1.0.4", default-features = false, features = ["serde"] }
-serde = { version = "1.0.135", default-features = false, features = ["derive"] }
-serde_json = { version = "1.0.78", default-features = false }
-serde_repr = { version = "0.1.7", default-features = false }
+reqwest = { version = "0.11.9", default-features = false, optional = true }
+rumqttc = { version = "0.11.0", default-features = false, optional = true }
 thiserror = { version = "1.0.30", default-features = false }
+tokio = { version = "1.17.0", default-features = false, features = ["rt-multi-thread"], optional = true }
+ureq = { version = "2.4.0", default-features = false, optional = true }
 url = { version = "2.2.2", default-features = false }
-
-# feature: sync-rest-apis
-ureq = { version = "2.4.0", default-features = false, features = ["tls", "socks-proxy"], optional = true }
-
-# feature: async-rest-apis
-reqwest = { version = "0.11.9", default-features = false, features = ["rustls-tls-webpki-roots", "socks"], optional = true }
-
-# feature: event-apis
-rumqttc = { version = "0.10.0", default-features = false, optional = true }
-
-# feature: async
-tokio = { version = "1.15.0", default-features = false, features = ["rt-multi-thread"], optional = true }
 
 [build-dependencies]
 cargo-lock = { version = "7.0.1", default-features = false }
-lazy_static = { version = "1.4.0", default-features = false }
 
 [features]
-# The default is to enable all features and interfaces.
-default = ["sync-rest-apis", "async-rest-apis", "sync-event-apis", "async-event-apis"]
+# For the meanings and combinations of features, consult the API documentation.
+default = ["async", "reqwest", "rumqttc", "tls-native", "mnemonic"]
 
-# This enables the REST APIs in the synchronous client (`Client`).
-sync-rest-apis = ["sync", "rest-apis", "ureq"]
+client = ["dep:derive_builder"]
+# sync = ["client"] # unimplemented
+async = ["client", "dep:tokio"]
 
-# This enables the REST APIs in the asynchronous clinet (`AsyncClient`).
-async-rest-apis = ["async", "rest-apis", "reqwest"]
+comm = []
+http = ["comm"]
+ureq = ["http", "dep:ureq"]
+reqwest = ["http", "dep:reqwest"]
+curl = ["http"]
 
-# This enables the Event APIs in the synchronous client (`Client`).
-sync-event-apis = ["sync", "event-apis"]
+mqtt = ["comm"]
+rumqttc = ["mqtt", "dep:rumqttc"]
 
-# This enables the Event APIs in the asynchronous clinet (`AsyncClient`).
-async-event-apis = ["async", "event-apis"]
+tls-webpki = ["reqwest?/rustls-tls-webpki-roots", "ureq?/tls"]
+tls-native = ["reqwest?/rustls-tls-native-roots", "ureq?/tls", "ureq?/native-certs"]
 
-# The following features are for internal use and should not be specified.
-sync = []
-async = ["tokio"]
-rest-apis = []
-event-apis = ["rumqttc"]
+signer = []
+mnemonic = ["signer"]
+stronghold = ["signer"]
+ledger = ["signer"]
+
+ffi = []

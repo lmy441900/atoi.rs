@@ -1,4 +1,11 @@
-// Copyright 2022 IOTA Stiftung
-// SPDX-License-Identifier: Apache-2.0
+use super::{AsyncClient, AsyncClientBuilder};
 
-//! Public API implementations of [AsyncClient].
+impl AsyncClient {
+    pub fn new() -> Self {
+        Default::default()
+    }
+
+    pub fn builder() -> AsyncClientBuilder {
+        AsyncClientBuilder::default()
+    }
+}

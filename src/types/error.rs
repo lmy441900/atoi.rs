@@ -1,6 +1,3 @@
-// Copyright 2022 IOTA Stiftung
-// SPDX-License-Identifier: Apache-2.0
-
 //! The error type used across the library.
 
 /// The error type used across the library.
@@ -14,7 +11,7 @@ pub enum Error {
     #[error("invalid response received: {0}")]
     InvalidResponse(Box<dyn std::error::Error>),
 
-    /// An error related to the computer network (e.g. a loss of connection) happened.
+    /// An computer network error (e.g. a loss of connection) happened.
     #[error("network error: {0}")]
     NetworkError(Box<dyn std::error::Error>),
 

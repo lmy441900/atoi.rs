@@ -1,7 +1,4 @@
-// Copyright 2022 IOTA Stiftung
-// SPDX-License-Identifier: Apache-2.0
-
-//! Preset values that can make our life easier.
+//! Preset public IOTA nodes.
 
 use std::convert::From;
 use url::Url;
