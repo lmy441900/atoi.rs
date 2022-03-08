@@ -35,6 +35,13 @@ pub mod ffi;
 pub mod signer;
 pub mod types;
 
+/// A shorter alias of the default client.
+#[cfg(feature = "async")]
+pub type Client = self::client::AsyncClient;
+/// A shorter alias of the builder of the default client.
+#[cfg(feature = "async")]
+pub type ClientBuilder = self::client::AsyncClientBuilder;
+
 /// The version string of iota-client.
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");
 
@@ -43,10 +50,3 @@ pub const VERSION: &str = env!("CARGO_PKG_VERSION");
 /// [Result]: std::result::Result
 /// [Error]: self::types::Error
 pub type Result<T> = std::result::Result<T, self::types::Error>;
-
-/// A shorter alias of the default client.
-#[cfg(feature = "async")]
-pub type Client = self::client::AsyncClient;
-/// A shorter alias of the builder of the default client.
-#[cfg(feature = "async")]
-pub type ClientBuilder = self::client::AsyncClientBuilder;

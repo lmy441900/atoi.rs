@@ -6,16 +6,15 @@ mod public;
 use crate::comm::http::{AsyncHttpClient, ReqwestHttpClient};
 use crate::comm::mqtt::{AsyncMqttClient, RumqttcMqttClient};
 use crate::signer::AsyncSigner;
-use crate::types::PresetNodes;
+use crate::types::{Node, PresetNode};
 use derive_builder::Builder;
-use url::Url;
 
 /// Stub.
 #[cfg(feature = "async")]
 #[derive(Builder)]
 #[builder(pattern = "owned", setter(strip_option))]
 pub struct AsyncClient {
-    pub nodes: Vec<Url>,
+    pub nodes: Option<Vec<Node>>,
     pub http: Option<Box<dyn AsyncHttpClient>>,
     pub mqtt: Option<Box<dyn AsyncMqttClient>>,
     pub signer: Option<Box<dyn AsyncSigner>>,
@@ -24,9 +23,21 @@ pub struct AsyncClient {
 impl Default for AsyncClient {
     fn default() -> Self {
         Self {
-            nodes: PresetNodes::Mainnet.into(),
-            http: Some(Box::new(ReqwestHttpClient::new())),
-            mqtt: Some(Box::new(RumqttcMqttClient::new())),
+            nodes: if cfg!(feature = "comm") {
+                Some(PresetNode::Mainnet.into())
+            } else {
+                None
+            },
+            http: if cfg!(feature = "reqwest") {
+                Some(Box::new(ReqwestHttpClient::new()))
+            } else {
+                None
+            },
+            mqtt: if cfg!(feature = "rumqttc") {
+                Some(Box::new(RumqttcMqttClient::new()))
+            } else {
+                None
+            },
             signer: None,
         }
     }

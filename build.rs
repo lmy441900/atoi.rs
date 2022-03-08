@@ -5,7 +5,7 @@ fn dep_ver<'a>(this_pkg: &'a Package, dep_name: &'a str) -> &'a Version {
     &this_pkg
         .dependencies
         .iter()
-        .find(|&dep| dep.name.as_str() == dep_name)
+        .find(|dep| dep.name.as_str() == dep_name)
         .unwrap()
         .version
 }

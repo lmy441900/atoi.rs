@@ -22,4 +22,20 @@ pub enum Error {
     /// No node is currently available for use. An array of errors encountered is included.
     #[error("no node is currently available")]
     NoAvailableNode(Vec<Self>),
+
+    /// No node has been configured during client construction.
+    #[error("cannot perform any network operation: no node has been configured")]
+    NoNode,
+
+    /// No HTTP client has been configured during client construction.
+    #[error("cannot send any http request: no http client has been configured")]
+    NoHttpClient,
+
+    /// No MQTT client has been configured during client construction.
+    #[error("cannot subscribe to any topic: no mqtt client has been configured")]
+    NoMqttClient,
+
+    /// No signer has been configured during client construction.
+    #[error("cannot sign on any message: no signer has been configured")]
+    NoSigner,
 }

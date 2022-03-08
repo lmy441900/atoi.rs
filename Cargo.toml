@@ -36,6 +36,7 @@ client = ["dep:derive_builder"]
 async = ["client", "dep:tokio"]
 
 comm = []
+
 http = ["comm"]
 ureq = ["http", "dep:ureq"]
 reqwest = ["http", "dep:reqwest"]

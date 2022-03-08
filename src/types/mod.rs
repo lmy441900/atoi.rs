@@ -1,8 +1,10 @@
 //! Types used across the library.
 
 mod error;
-mod preset_nodes;
+mod node;
+mod preset_node;
 
 // Exports.
 pub use self::error::Error;
-pub use self::preset_nodes::PresetNodes;
+pub use self::node::Node;
+pub use self::preset_node::PresetNode;
