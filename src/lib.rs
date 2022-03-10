@@ -9,7 +9,11 @@
 //! This API documentation is mainly for application developers. For basic concepts of IOTA and the
 //! Tangle, please visit [the IOTA Wiki] for more background information.
 //!
-//! To start, use [Client].
+#![cfg_attr(feature = "client", doc = "To start, use ")]
+#![cfg_attr(feature = "sync", doc = "[Client]")]
+#![cfg_attr(all(feature = "sync", feature = "async"), doc = " or ")]
+#![cfg_attr(feature = "async", doc = "[AsyncClient]")]
+#![cfg_attr(feature = "client", doc = ".")]
 //!
 //! ## Features
 //!
@@ -23,8 +27,6 @@
 //! [the IOTA Wiki]: https://wiki.iota.org/
 //! [Mainnet]: https://wiki.iota.org/chrysalis-docs/mainnet
 
-#![feature(doc_auto_cfg)]
-
 #[cfg(feature = "client")]
 pub mod client;
 #[cfg(feature = "comm")]
@@ -35,12 +37,11 @@ pub mod ffi;
 pub mod signer;
 pub mod types;
 
-/// A shorter alias of the default client.
+// Re-exports.
 #[cfg(feature = "async")]
-pub type Client = self::client::AsyncClient;
-/// A shorter alias of the builder of the default client.
-#[cfg(feature = "async")]
-pub type ClientBuilder = self::client::AsyncClientBuilder;
+pub use self::client::{AsyncClient, AsyncClientBuilder};
+#[cfg(feature = "sync")]
+pub use self::client::{Client, ClientBuilder};
 
 /// The version string of iota-client.
 pub const VERSION: &str = env!("CARGO_PKG_VERSION");

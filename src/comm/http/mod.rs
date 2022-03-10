@@ -1,4 +1,4 @@
-//! Communication backends talking HTTP.
+//! Communication backends speaking HTTP.
 
 #[cfg(feature = "reqwest")]
 mod reqwest;
@@ -12,7 +12,7 @@ use async_trait::async_trait;
 use url::Url;
 
 /// Interfaces of a synchronous HTTP client.
-pub trait SyncHttpClient {
+pub trait HttpClient {
     fn get(&self, url: &Url) -> Result<Vec<u8>>;
     fn put(&self, url: &Url, body: &[u8]) -> Result<Vec<u8>>;
     fn post(&self, url: &Url, body: &[u8]) -> Result<Vec<u8>>;

@@ -16,11 +16,13 @@ publish = false
 [dependencies]
 async-trait = { version = "0.1.52", default-features = false }
 derive_builder = { version = "0.10.2", default-features = false, optional = true }
+iota_stronghold = { version = "0.4.1", default-features = false, optional = true }
+ledger-transport-hid = { git = "https://github.com/iotaledger/ledger-rs/", rev = "3787ba2e509a18d0f6ac3a2f1e427b906c3e252d", default-features = false, optional = true }
 log = { version = "0.4.14", default-features = false }
 reqwest = { version = "0.11.9", default-features = false, optional = true }
 rumqttc = { version = "0.11.0", default-features = false, optional = true }
 thiserror = { version = "1.0.30", default-features = false }
-tokio = { version = "1.17.0", default-features = false, features = ["rt-multi-thread"], optional = true }
+tokio = { version = "1.17.0", default-features = false, features = ["sync"], optional = true }
 ureq = { version = "2.4.0", default-features = false, optional = true }
 url = { version = "2.2.2", default-features = false }
 
@@ -29,10 +31,10 @@ cargo-lock = { version = "7.0.1", default-features = false }
 
 [features]
 # For the meanings and combinations of features, consult the API documentation.
-default = ["async", "reqwest", "rumqttc", "tls-native", "mnemonic"]
+default = ["async", "reqwest", "rumqttc", "mnemonic"]
 
 client = ["dep:derive_builder"]
-# sync = ["client"] # unimplemented
+sync = ["client"]
 async = ["client", "dep:tokio"]
 
 comm = []
@@ -50,7 +52,7 @@ tls-native = ["reqwest?/rustls-tls-native-roots", "ureq?/tls", "ureq?/native-cer
 
 signer = []
 mnemonic = ["signer"]
-stronghold = ["signer"]
-ledger = ["signer"]
+stronghold = ["signer", "dep:iota_stronghold"]
+ledger = ["signer", "dep:ledger-transport-hid"]
 
 ffi = []

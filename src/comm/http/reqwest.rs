@@ -7,13 +7,29 @@ use crate::Result;
 use async_trait::async_trait;
 use url::Url;
 
-/// Stub.
+/// The default user agent string.
+const DEFAULT_USER_AGENT: &str = concat!(
+    env!("CARGO_PKG_NAME"),
+    "/",
+    env!("CARGO_PKG_VERSION"),
+    " reqwest/",
+    env!("REQWEST_VERSION")
+);
+
+/// HTTP client with [reqwest].
 #[cfg(feature = "reqwest")]
-pub struct ReqwestHttpClient {}
+pub struct ReqwestHttpClient {
+    pub client: reqwest::Client,
+}
 
 impl Default for ReqwestHttpClient {
     fn default() -> Self {
-        Self {}
+        Self {
+            client: reqwest::Client::builder()
+                .user_agent(DEFAULT_USER_AGENT)
+                .build()
+                .unwrap(),
+        }
     }
 }
 

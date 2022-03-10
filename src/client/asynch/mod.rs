@@ -9,10 +9,9 @@ use crate::signer::AsyncSigner;
 use crate::types::{Node, PresetNode};
 use derive_builder::Builder;
 
-/// Stub.
-#[cfg(feature = "async")]
+/// The entry point of IOTA, with asynchronous interfaces.
 #[derive(Builder)]
-#[builder(pattern = "owned", setter(strip_option))]
+#[builder(pattern = "owned", setter(strip_option), default)]
 pub struct AsyncClient {
     pub nodes: Option<Vec<Node>>,
     pub http: Option<Box<dyn AsyncHttpClient>>,
@@ -40,5 +39,15 @@ impl Default for AsyncClient {
             },
             signer: None,
         }
+    }
+}
+
+impl AsyncClient {
+    pub fn new() -> Self {
+        Default::default()
+    }
+
+    pub fn builder() -> AsyncClientBuilder {
+        AsyncClientBuilder::default()
     }
 }

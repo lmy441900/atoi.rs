@@ -18,8 +18,14 @@ pub use self::stronghold::StrongholdSigner;
 use async_trait::async_trait;
 
 /// Interfaces for a synchronous signer.
-pub trait SyncSigner {}
+pub trait Signer {
+    fn generate_addresses(&self);
+    fn signature_unlock(&self);
+}
 
 /// Interfaces for an asynchronous signer.
 #[async_trait]
-pub trait AsyncSigner {}
+pub trait AsyncSigner {
+    async fn generate_addresses(&self);
+    async fn signature_unlock(&self);
+}

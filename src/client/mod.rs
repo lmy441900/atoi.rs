@@ -10,7 +10,11 @@
 
 #[cfg(feature = "async")]
 mod asynch;
+#[cfg(feature = "sync")]
+mod synch;
 
 // Exports.
 #[cfg(feature = "async")]
 pub use self::asynch::{AsyncClient, AsyncClientBuilder};
+#[cfg(feature = "sync")]
+pub use self::synch::{Client, ClientBuilder};
