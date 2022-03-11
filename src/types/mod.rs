@@ -6,5 +6,5 @@ mod preset_node;
 
 // Exports.
 pub use self::error::Error;
-pub use self::node::Node;
+pub use self::node::{Auth, Node};
 pub use self::preset_node::PresetNode;
