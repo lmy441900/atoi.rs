@@ -22,7 +22,8 @@ impl AsyncClient {
         let mut results = Vec::new();
 
         for node in nodes {
-            let result = http.get(node, path).await;
+            let url = node.url.clone() + path;
+            let result = http.get(&url, node.auth.as_ref()).await;
             results.push(result);
         }
 

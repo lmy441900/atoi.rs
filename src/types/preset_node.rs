@@ -31,7 +31,7 @@ use std::convert::From;
 /// ```
 ///
 /// [into()]: std::convert::Into::into()
-#[derive(Clone, Debug)]
+#[derive(Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]
 pub enum PresetNode {
     /// Node(s) to the mainnet, the primary public Tangle.
     ///

@@ -1,7 +1,7 @@
 //! The error type used across the library.
 
 /// The error type used across the library.
-#[derive(Debug)]
+#[derive(Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]
 #[cfg_attr(feature = "std", derive(thiserror::Error))]
 pub enum Error {
     /// No node has been configured during client construction.

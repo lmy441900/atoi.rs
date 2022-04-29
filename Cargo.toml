@@ -28,7 +28,7 @@ cargo-lock = { version = "7.0.1", default-features = false }
 
 [features]
 # For the meanings and combinations of features, consult the API documentation.
-default = ["std", "async"]
+default = ["std", "async", "http", "mqtt"]
 
 std = ["dep:thiserror"]
 

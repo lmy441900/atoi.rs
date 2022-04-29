@@ -41,14 +41,10 @@
 //! [Bee]: https://github.com/iotaledger/bee/
 //! [IOTA Wiki]: https://wiki.iota.org/
 
-#[cfg(feature = "client")]
 pub mod client;
-#[cfg(feature = "comm")]
 pub mod comm;
-#[cfg(feature = "ffi")]
 pub mod ffi;
-#[cfg(feature = "signer")]
-pub mod signer;
+pub mod secret_manager;
 pub mod types;
 
 // Re-exports.
