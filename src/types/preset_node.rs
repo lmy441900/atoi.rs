@@ -2,7 +2,6 @@
 
 use super::node::Node;
 use std::convert::From;
-use url::Url;
 
 /// Preset public IOTA nodes.
 ///
@@ -11,14 +10,12 @@ use url::Url;
 ///
 /// - [`&str`] and [`Vec<&str>`]
 /// - [`String`] and [`Vec<String>`]
-/// - [`Url`] and [`Vec<Url>`]
 ///
 /// ```
 /// use iota_client::types::PresetNode;
-/// use url::Url;
 ///
 /// let mainnet: Vec<&str> = PresetNode::Mainnet.into();
-/// let devnet: Url = PresetNode::DevnetIotaFoundation0.into();
+/// let devnet: String = PresetNode::DevnetIotaFoundation0.into();
 ///
 /// assert_eq!(
 ///     mainnet,
@@ -29,9 +26,7 @@ use url::Url;
 /// );
 /// assert_eq!(
 ///     devnet,
-///     "https://api.lb-0.h.chrysalis-devnet.iota.cafe"
-///         .try_into()
-///         .unwrap()
+///     String::from("https://api.lb-0.h.chrysalis-devnet.iota.cafe")
 /// );
 /// ```
 ///
@@ -119,20 +114,6 @@ impl From<PresetNode> for Vec<String> {
     }
 }
 
-impl From<PresetNode> for Url {
-    fn from(node: PresetNode) -> Url {
-        let str: &str = node.into();
-        str.try_into().unwrap()
-    }
-}
-
-impl From<PresetNode> for Vec<Url> {
-    fn from(node: PresetNode) -> Vec<Url> {
-        let strs: Vec<&str> = node.into();
-        strs.into_iter().map(|s| s.try_into().unwrap()).collect()
-    }
-}
-
 impl From<PresetNode> for Node {
     fn from(node: PresetNode) -> Node {
         Self {
@@ -144,7 +125,7 @@ impl From<PresetNode> for Node {
 
 impl From<PresetNode> for Vec<Node> {
     fn from(node: PresetNode) -> Vec<Node> {
-        let urls: Vec<Url> = node.into();
+        let urls: Vec<String> = node.into();
         urls.into_iter()
             .map(|url| Node { url, auth: None })
             .collect()

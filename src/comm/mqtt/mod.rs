@@ -1,13 +1,6 @@
 //! Communication backends speaking MQTT.
 
-#[cfg(feature = "rumqttc")]
-mod rumqttc;
-
 use async_trait::async_trait;
-
-// Exports.
-#[cfg(feature = "rumqttc")]
-pub use self::rumqttc::RumqttcMqttClient;
 
 /// Interfaces for a synchronous MQTT client.
 pub trait MqttClient {

@@ -15,44 +15,31 @@ publish = false
 
 [dependencies]
 async-trait = { version = "0.1.52", default-features = false }
-derive_builder = { version = "0.10.2", default-features = false, optional = true }
-iota_stronghold = { version = "0.4.1", default-features = false, optional = true }
-ledger-transport-hid = { git = "https://github.com/iotaledger/ledger-rs/", rev = "3787ba2e509a18d0f6ac3a2f1e427b906c3e252d", default-features = false, optional = true }
 log = { version = "0.4.14", default-features = false }
-reqwest = { version = "0.11.9", default-features = false, optional = true }
-rumqttc = { version = "0.11.0", default-features = false, optional = true }
-thiserror = { version = "1.0.30", default-features = false }
-tokio = { version = "1.17.0", default-features = false, features = ["sync"], optional = true }
-ureq = { version = "2.4.0", default-features = false, optional = true }
-url = { version = "2.2.2", default-features = false }
+thiserror = { version = "1.0.30", default-features = false, optional = true }
+futures = { version = "0.3.21", default-features = false, optional = true }
+
+[dev-dependencies]
+env_logger = "0.9.0"
+futures = "0.3.21"
 
 [build-dependencies]
 cargo-lock = { version = "7.0.1", default-features = false }
 
 [features]
 # For the meanings and combinations of features, consult the API documentation.
-default = ["async", "reqwest", "rumqttc", "mnemonic"]
+default = ["std", "async"]
 
-client = ["dep:derive_builder"]
+std = ["dep:thiserror"]
+
+client = []
 sync = ["client"]
-async = ["client", "dep:tokio"]
+async = ["client", "dep:futures"]
 
 comm = []
-
 http = ["comm"]
-ureq = ["http", "dep:ureq"]
-reqwest = ["http", "dep:reqwest"]
-curl = ["http"]
-
 mqtt = ["comm"]
-rumqttc = ["mqtt", "dep:rumqttc"]
-
-tls-webpki = ["reqwest?/rustls-tls-webpki-roots", "ureq?/tls"]
-tls-native = ["reqwest?/rustls-tls-native-roots", "ureq?/tls", "ureq?/native-certs"]
 
 signer = []
-mnemonic = ["signer"]
-stronghold = ["signer", "dep:iota_stronghold"]
-ledger = ["signer", "dep:ledger-transport-hid"]
 
 ffi = []

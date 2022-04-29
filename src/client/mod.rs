@@ -15,6 +15,6 @@ mod synch;
 
 // Exports.
 #[cfg(feature = "async")]
-pub use self::asynch::{AsyncClient, AsyncClientBuilder};
+pub use self::asynch::AsyncClient;
 #[cfg(feature = "sync")]
-pub use self::synch::{Client, ClientBuilder};
+pub use self::synch::Client;

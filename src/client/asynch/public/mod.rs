@@ -6,3 +6,4 @@ mod core;
 mod event;
 mod faucet;
 mod indexer;
+mod rest;

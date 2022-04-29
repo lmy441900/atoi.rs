@@ -1,5 +1,3 @@
-use url::Url;
-
 /// Authentication information to an IOTA node.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub enum Auth {
@@ -10,6 +8,6 @@ pub enum Auth {
 /// Information needed to connect to an IOTA node.
 #[derive(Clone, Debug, PartialEq, Eq)]
 pub struct Node {
-    pub url: Url,
+    pub url: String,
     pub auth: Option<Auth>,
 }
