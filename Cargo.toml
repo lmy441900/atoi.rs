@@ -1,7 +1,7 @@
 [package]
-name = "iota-client"
-version = "2.0.0-alpha.1"
-authors = ["IOTA Stiftung"]
+name = "atoi"
+version = "0.0.0"
+authors = ["Minyong Li <minyong.li@iota.org>"]
 edition = "2021"
 rust-version = "1.60"
 description = "An experimental client library for interacting with IOTA (a.k.a. the Tangle)"
@@ -15,31 +15,18 @@ publish = false
 
 [dependencies]
 async-trait = { version = "0.1.52", default-features = false }
-log = { version = "0.4.14", default-features = false }
-thiserror = { version = "1.0.30", default-features = false, optional = true }
-futures = { version = "0.3.21", default-features = false, optional = true }
-
-[dev-dependencies]
-env_logger = "0.9.0"
-futures = "0.3.21"
+serde = { version = "1.0.136", default-features = false, features = ["derive"] }
+serde_json = { version = "1.0.79", default-features = false, features = ["alloc"] }
+typed-builder = { version = "0.10.0", default-features = false }
 
 [build-dependencies]
 cargo-lock = { version = "7.0.1", default-features = false }
 
 [features]
 # For the meanings and combinations of features, consult the API documentation.
-default = ["std", "async", "http", "mqtt"]
+default = ["sync", "async"]
 
-std = ["dep:thiserror"]
-
-client = []
-sync = ["client"]
-async = ["client", "dep:futures"]
-
-comm = []
-http = ["comm"]
-mqtt = ["comm"]
-
-signer = []
+sync = []
+async = []
 
 ffi = []

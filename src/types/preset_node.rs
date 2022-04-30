@@ -1,7 +1,9 @@
 //! Preset public IOTA nodes.
 
 use super::node::Node;
-use std::convert::From;
+use alloc::string::String;
+use alloc::{vec, vec::Vec};
+use core::convert::From;
 
 /// Preset public IOTA nodes.
 ///
@@ -30,7 +32,7 @@ use std::convert::From;
 /// );
 /// ```
 ///
-/// [into()]: std::convert::Into::into()
+/// [into()]: core::convert::Into::into()
 #[derive(Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]
 pub enum PresetNode {
     /// Node(s) to the mainnet, the primary public Tangle.

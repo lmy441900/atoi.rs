@@ -4,17 +4,16 @@ mod private;
 mod public;
 
 use crate::comm::http::AsyncHttpClient;
-use crate::comm::mqtt::AsyncMqttClient;
-use crate::secret_manager::AsyncSecretManager;
 use crate::types::Node;
+use alloc::boxed::Box;
+use typed_builder::TypedBuilder;
 
 /// The entry point of IOTA, with asynchronous interfaces.
-#[derive(Default)]
+#[derive(Default, TypedBuilder)]
+#[builder(field_defaults(default, setter(strip_option)))]
 pub struct AsyncClient {
-    pub nodes: Option<Vec<Node>>,
+    pub node: Option<Node>,
     pub http: Option<Box<dyn AsyncHttpClient>>,
-    pub mqtt: Option<Box<dyn AsyncMqttClient>>,
-    pub signer: Option<Box<dyn AsyncSecretManager>>,
 }
 
 impl AsyncClient {

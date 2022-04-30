@@ -7,11 +7,7 @@
 //! This API documentation is mainly for application developers. For basic concepts of IOTA and the
 //! Tangle, please visit the [IOTA Wiki] for more background information.
 //!
-#![cfg_attr(feature = "client", doc = "To start, use ")]
-#![cfg_attr(feature = "sync", doc = "[Client]")]
-#![cfg_attr(all(feature = "sync", feature = "async"), doc = " or ")]
-#![cfg_attr(feature = "async", doc = "[AsyncClient]")]
-#![cfg_attr(feature = "client", doc = ".")]
+//! To start, use `Client` or `AsyncClient`.
 //!
 //! ## Supported API Specifications
 //!
@@ -25,26 +21,23 @@
 //! Various modules can be switched on or off via Cargo. Feature gates are defined in `Cargo.toml`,
 //! but some of them are for internal use. Here is a brief explanation to the usable ones:
 //!
-//! - `sync`: turns on [Client] with synchronous interfaces.
-//! - `async`: turns on [AsyncClient] with asynchronous interfaces.
-// //! - `ureq`: turns on [UreqHttpClient](comm::http::UreqHttpClient).
-//! - `reqwest`: turns on [ReqwestHttpClient](comm::http::ReqwestHttpClient).
-// //! - `curl`: turns on [CurlHttpClient](comm::http::CurlHttpClient).
-//! - `rumqttc`: turns on [RumqttcMqttClient](comm::mqtt::RumqttcMqttClient).
+//! - `sync`: turns on `Client` with synchronous interfaces.
+//! - `async`: turns on `AsyncClient` with asynchronous interfaces.
 //! - `tls-webpki`: bundle the Web PKI CA certificates and use it for TLS connections.
 //! - `tls-native`: use the CA certificates available on the running system.
-//! - `mnemonic`: turns on [MnemonicSigner](signer::MnemonicSigner).
-// //! - `ledger`: turns on [LedgerSigner](signer::LedgerSigner).
-// //! - `stronghold`: turns on [StrongholdSigner](signer::StrongholdSigner).
 //!
 //! [Hornet]: https://github.com/gohornet/hornet
 //! [Bee]: https://github.com/iotaledger/bee/
 //! [IOTA Wiki]: https://wiki.iota.org/
 
+#![no_std]
+
+extern crate alloc;
+
 pub mod client;
 pub mod comm;
+#[cfg(feature = "ffi")]
 pub mod ffi;
-pub mod secret_manager;
 pub mod types;
 
 // Re-exports.
@@ -52,9 +45,3 @@ pub mod types;
 pub use self::client::AsyncClient;
 #[cfg(feature = "sync")]
 pub use self::client::Client;
-
-/// The canonical [Result] type used across the library, with [Error] as the error type.
-///
-/// [Result]: std::result::Result
-/// [Error]: self::types::Error
-pub type Result<T> = std::result::Result<T, self::types::Error>;
