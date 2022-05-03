@@ -31,7 +31,7 @@ cargo-lock = { version = "7.0.1", default-features = false }
 # For the meanings and combinations of features, consult the API documentation.
 default = ["std", "sync", "async"]
 
-std = []
+std = ["serde/std", "serde_json/std"]
 
 sync = []
 async = []

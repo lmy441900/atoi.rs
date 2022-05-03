@@ -11,15 +11,6 @@ pub enum Error {
     /// No HTTP client has been configured during client construction.
     MissingHttpClient,
 
-    /// No MQTT client has been configured during client construction.
-    MissingMqttClient,
-
-    /// No signer has been configured during client construction.
-    MissingSigner,
-
-    /// AN error was returned by the client or its backend.
-    ClientError(String),
-
     /// An error was returned by the node software.
     NodeError {
         url: String,
@@ -30,13 +21,19 @@ pub enum Error {
     /// An invalid / malformed response was received from a node.
     ResponseError(String),
 
-    /// An computer network error (e.g. a loss of connection) happened.
-    NetworkError(String),
+    /// An error was returned by the HTTP client.
+    HttpClientError(String),
+}
+
+impl From<serde_json::Error> for Error {
+    fn from(serde_json_error: serde_json::Error) -> Self {
+        Self::ResponseError(serde_json_error.to_string())
+    }
 }
 
 #[cfg(feature = "curl")]
 impl From<curl::Error> for Error {
     fn from(curl_error: curl::Error) -> Self {
-        Self::ClientError(curl_error.to_string())
+        Self::HttpClientError(curl_error.to_string())
     }
 }
