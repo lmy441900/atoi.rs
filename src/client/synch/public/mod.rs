@@ -1,6 +1,6 @@
-//! Public API implementations for [AsyncClient].
+//! Public API implementations for [Client].
 //!
-//! [AsyncClient]: super::AsyncClient
+//! [Client]: super::Client
 
 mod core;
 mod event;

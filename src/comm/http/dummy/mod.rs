@@ -8,6 +8,7 @@ use crate::types::{Auth, Result};
 use alloc::{boxed::Box, vec::Vec};
 use async_trait::async_trait;
 
+/// Dummy HTTP client that returns fake data when invoked.
 #[derive(Clone, Copy, PartialEq, Eq, PartialOrd, Ord, Hash, Debug, Default)]
 pub struct DummyHttpClient {}
 

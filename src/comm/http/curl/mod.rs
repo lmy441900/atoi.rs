@@ -16,6 +16,7 @@ const USER_AGENT: &str = concat!(
     env!("CURL_VERSION"),
 );
 
+/// HTTP communication backend using libcurl.
 #[derive(Debug, Default)]
 pub struct CurlHttpClient {}
 

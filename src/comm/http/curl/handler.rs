@@ -1,5 +1,10 @@
-//! Handler implementation of [curl::easy::Easy2] for [CurlHttpClient].
+//! Handler implementation of [`curl::easy::Easy2`] for [`CurlHttpClient`].
+//!
+//! [`CurlHttpClient`]: super::CurlHttpClient
 
+/// Handler implementation of [`curl::easy::Easy2`] for [`CurlHttpClient`].
+///
+/// [`CurlHttpClient`]: super::CurlHttpClient
 #[derive(Debug, Default)]
 pub(super) struct CurlHttpClientHandler(pub(super) Vec<u8>);
 

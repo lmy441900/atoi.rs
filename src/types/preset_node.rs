@@ -8,13 +8,14 @@ use core::convert::From;
 /// Preset public IOTA nodes.
 ///
 /// Each of the option here represents either a selected node or a group of nodes running the
-/// corresponding Tangle. They can be easily converted into several types with an [into()] call:
+/// corresponding Tangle. They can be easily converted into several types with an invocation of
+/// [`into()`]:
 ///
 /// - [`&str`] and [`Vec<&str>`]
 /// - [`String`] and [`Vec<String>`]
 ///
 /// ```
-/// use iota_client::types::PresetNode;
+/// use atoi::types::PresetNode;
 ///
 /// let mainnet: Vec<&str> = PresetNode::Mainnet.into();
 /// let devnet: String = PresetNode::DevnetIotaFoundation0.into();
@@ -32,12 +33,14 @@ use core::convert::From;
 /// );
 /// ```
 ///
-/// [into()]: core::convert::Into::into()
+/// [`into()`]: core::convert::Into::into()
 #[derive(Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]
 pub enum PresetNode {
     /// Node(s) to the mainnet, the primary public Tangle.
     ///
-    /// This is currently a synonym to [PresetNode::MainnetIotaFoundation].
+    /// This is currently a synonym to [`MainnetIotaFoundation`].
+    ///
+    /// [`MainnetIotaFoundation`]: Self::MainnetIotaFoundation
     Mainnet,
     /// Node(s) maintained by the IOTA Foundation to the mainnet.
     MainnetIotaFoundation,
@@ -50,7 +53,9 @@ pub enum PresetNode {
     MainnetTangleBay,
     /// Node(s) to the devnet, the public Tangle for development and testing purposes.
     ///
-    /// This is currently a synonym to [PresetNode::DevnetIotaFoundation].
+    /// This is currently a synonym to [`DevnetIotaFoundation`].
+    ///
+    /// [`DevnetIotaFoundation`]: Self::DevnetIotaFoundation
     Devnet,
     /// Node(s) maintained by the IOTA Foundation to the devnet.
     DevnetIotaFoundation,

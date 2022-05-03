@@ -1,6 +1,6 @@
 #![feature(assert_matches, default_alloc_error_handler)]
-#![no_std]
-#![no_main]
+#![cfg_attr(not(feature = "std"), no_std)]
+#![cfg_attr(not(feature = "std"), no_main)]
 
 extern crate alloc;
 extern crate wee_alloc;
@@ -24,6 +24,7 @@ fn panic(_info: &PanicInfo) -> ! {
     loop {}
 }
 
+#[cfg(not_feature = "std")]
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
     main();
