@@ -17,6 +17,9 @@ pub enum Error {
     /// No signer has been configured during client construction.
     MissingSigner,
 
+    /// AN error was returned by the client or its backend.
+    ClientError(String),
+
     /// An error was returned by the node software.
     NodeError {
         url: String,
@@ -29,4 +32,11 @@ pub enum Error {
 
     /// An computer network error (e.g. a loss of connection) happened.
     NetworkError(String),
+}
+
+#[cfg(feature = "curl")]
+impl From<curl::Error> for Error {
+    fn from(curl_error: curl::Error) -> Self {
+        Self::ClientError(curl_error.to_string())
+    }
 }

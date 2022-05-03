@@ -1,4 +1,4 @@
-use atoi::comm::http::dummy::DummyHttpClient;
+use atoi::comm::http::DummyHttpClient;
 use atoi::types::Node;
 use atoi::AsyncClient;
 

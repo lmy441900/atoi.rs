@@ -17,13 +17,15 @@ fn main() {
         .find(|pkg| pkg.name.as_str() == env!("CARGO_PKG_NAME"))
         .unwrap();
 
-    ["ureq", "reqwest"].into_iter().for_each(|dep_name| {
-        if let Some(version) = dep_ver(this_pkg, dep_name) {
-            println!(
-                "cargo:rustc-env={}_VERSION={}",
-                dep_name.to_uppercase(),
-                version
-            );
-        }
-    });
+    ["ureq", "reqwest", "curl"]
+        .into_iter()
+        .for_each(|dep_name| {
+            if let Some(version) = dep_ver(this_pkg, dep_name) {
+                println!(
+                    "cargo:rustc-env={}_VERSION={}",
+                    dep_name.to_uppercase(),
+                    version
+                );
+            }
+        });
 }

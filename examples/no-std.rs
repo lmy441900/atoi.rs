@@ -6,24 +6,29 @@ extern crate alloc;
 extern crate wee_alloc;
 
 use alloc::{boxed::Box, string::String};
-use atoi::comm::http::dummy::DummyHttpClient;
+use atoi::comm::http::DummyHttpClient;
 use atoi::types::Node;
 use atoi::Client;
 use core::assert_matches::assert_matches;
+#[cfg(not(feature = "std"))]
 use core::panic::PanicInfo;
 use wee_alloc::WeeAlloc;
 
 #[global_allocator]
 static ALLOC: WeeAlloc = WeeAlloc::INIT;
 
-#[panic_handler]
+#[cfg_attr(not(feature = "std"), panic_handler)]
+#[cfg(not(feature = "std"))]
 fn panic(_info: &PanicInfo) -> ! {
+    #[allow(clippy::empty_loop)]
     loop {}
 }
 
 #[no_mangle]
 pub extern "C" fn _start() -> ! {
     main();
+
+    #[allow(clippy::empty_loop)]
     loop {}
 }
 

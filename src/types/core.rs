@@ -42,7 +42,7 @@ pub struct Protocol {
     #[serde(rename = "bech32HRP")]
     pub bech32_hrp: String,
     pub token_supply: String,
-    pub protocol_version: u64,
+    pub protocol_version: Option<u64>,
     #[serde(rename = "minPoWScore")]
     pub min_pow_score: f32,
     pub rent_structure: RentStructure,

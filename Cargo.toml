@@ -15,6 +15,7 @@ publish = false
 
 [dependencies]
 async-trait = { version = "0.1.52", default-features = false }
+curl = { version = "0.4.43", default-features = false, features = ["ssl"], optional = true }
 serde = { version = "1.0.136", default-features = false, features = ["derive"] }
 serde_json = { version = "1.0.79", default-features = false, features = ["alloc"] }
 typed-builder = { version = "0.10.0", default-features = false }
@@ -28,10 +29,14 @@ cargo-lock = { version = "7.0.1", default-features = false }
 
 [features]
 # For the meanings and combinations of features, consult the API documentation.
-default = ["sync", "async"]
+default = ["std", "sync", "async"]
+
+std = []
 
 sync = []
 async = []
+
+curl = ["std", "dep:curl"]
 
 ffi = []
 
@@ -46,3 +51,11 @@ panic = "abort"
 opt-level = "s"
 strip = true
 codegen-units = 1
+
+[[example]]
+name = "async-client"
+required-features = ["std", "async"]
+
+[[example]]
+name = "client"
+required-features = ["std", "sync", "curl"]

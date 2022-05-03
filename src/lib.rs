@@ -30,7 +30,7 @@
 //! [Bee]: https://github.com/iotaledger/bee/
 //! [IOTA Wiki]: https://wiki.iota.org/
 
-#![no_std]
+#![cfg_attr(not(feature = "std"), no_std)]
 
 extern crate alloc;
 

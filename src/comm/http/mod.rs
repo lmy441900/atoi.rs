@@ -1,6 +1,12 @@
 //! Communication backends speaking HTTP.
 
-pub mod dummy;
+#[cfg(feature = "curl")]
+mod curl;
+mod dummy;
+
+#[cfg(feature = "curl")]
+pub use self::curl::CurlHttpClient;
+pub use self::dummy::DummyHttpClient;
 
 use crate::types::{Auth, Result};
 use alloc::{boxed::Box, vec::Vec};
