@@ -1,6 +1,6 @@
 //! The error type used across the library.
 
-use alloc::string::String;
+use alloc::string::{String, ToString};
 
 /// The error type used across the library.
 #[derive(Clone, PartialEq, Eq, PartialOrd, Ord, Hash, Debug)]
